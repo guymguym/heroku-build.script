@@ -19,7 +19,9 @@ $ mkdir myapp
 $ cd myapp
 ```
 
-Now create an executable build.script file in your app`s root dir.
+Now create an executable build.script file in your app`s root dir. 
+
+This file will be called with the arguments from heroku buildpack such as: build.script compile BUILD_DIR CACHE_DIR. See https://devcenter.heroku.com/articles/buildpack-api for more info.
 
 Notice that the build.script file can be implemented using any executable/interpreted format that heroku stack will be able to run.
 
