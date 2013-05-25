@@ -1,4 +1,21 @@
 #!/usr/bin/env bash
 # bin/compile <build-dir> <cache-dir>
 
-echo "-----> Nothing to do."
+# Using the default file "build.script" as the build script.
+# Allow setting different name in the file ".build.script".
+BLD="$1"
+SCRIPT="${BLD}/build.script"
+SCRIPT_NAME="${BLD}/.build.script"
+
+if [ -f ${SCRIPT_NAME} ]; then
+    SCRIPT=`cat ${SCRIPT_NAME}`
+fi
+
+if [ ! -x ${SCRIPT} ]; then
+    echo "Missing build file (or not executable): ${SCRIPT}"
+    exit 1
+fi
+
+${SCRIPT} compile $*
+exit $?
+

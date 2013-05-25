@@ -1,6 +1,6 @@
-# Heroku Buildpack: Ø
+# Heroku Buildpack: build.script
 
-Use Ø if you need Heroku to execute a binary.
+Use it if you need a custom buildpack that will call a build.script in the app`s dir.
 
 ## Usage
 
@@ -11,21 +11,48 @@ $ mkdir -p myapp/bin
 $ cd myapp
 ```
 
-Here is an example of an executable that will run on 64bit linux machine:
+Here is a simple hello world example of a build.script:
 
 ```bash
-$ echo -e "#\!/usr/bin/env bash\n echo hello world" > ./bin/program
+$ cat - > build.script << 'EOF'
+#!/usr/bin/env bash
+
+case "$1" in
+"detect")
+    echo "build.script"
+    exit 0
+    ;;
+"release")
+    echo "build.script"
+    exit 0
+    ;;
+"compile")
+    shift
+    BLD="$1"
+    echo "-----> Compilation Starting: $*"
+    echo "#!/usr/bin/env bash" > ${BLD}/bin/program
+    echo "echo hello world" >> ${BLD}/bin/program
+    chmod +x ${BLD}/bin/program
+    echo "-----> Compilation Finished"
+    exit 0
+    ;;
+*)
+    echo "Unknown command: $1"
+    exit 1
+    ;;
+esac
+}
+EOF
+
+$ chmod +x build.script
 $ echo -e "program: bin/program" > Procfile
-$ chmod +x ./bin/program
-$ ./bin/program
-hello world
 ```
 
 Push the app to Heroku and run our executable:
 
 ```bash
 $ git init; git add .; git commit -am 'init'
-$ heroku create --buildpack http://github.com/ryandotsmith/null-buildpack.git
+$ heroku create --buildpack http://github.com/guymguym/null-buildpack.git
 $ git push heroku master
 $ heroku run program
 Running `program` attached to terminal... up, run.8663
@@ -34,8 +61,5 @@ hello world
 
 ## Motivation
 
-I wanted to run various executables (e.g. [log-shuttle](https://github.com/ryandotsmith/log-shuttle)) on Heroku without compiling them on Heroku. Thus, I compile programs on my linux 64 machine, or fetch the binary from the project, commit them to a repo and then run them on Heroku with the Ø buildpack.
+TODO - I can explain
 
-## Issues
-
-You will need to make sure that a 64bit linux machine can execute the binary.
