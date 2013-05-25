@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+set -e
+case "$1" in
+"detect")
+    echo "build.script"
+    exit 0
+    ;;
+"release")
+    echo "build.script"
+    exit 0
+    ;;
+"compile")
+    shift
+    BLD="$1"
+    echo "-----> Compilation Starting: $*"
+    mkdir -p ${BLD}/bin/
+    echo -e "#!/usr/bin/env bash \n echo hello world" > ${BLD}/bin/program
+    chmod +x ${BLD}/bin/program
+    echo "-----> Compilation Finished"
+    exit 0
+    ;;
+*)
+    echo "Unknown command: $1"
+    exit 1
+    ;;
+esac
+}

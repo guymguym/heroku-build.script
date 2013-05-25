@@ -16,7 +16,7 @@ Here is a simple hello world example of a build.script:
 ```bash
 $ cat - > build.script << 'EOF'
 #!/usr/bin/env bash
-
+set -e
 case "$1" in
 "detect")
     echo "build.script"
@@ -30,6 +30,7 @@ case "$1" in
     shift
     BLD="$1"
     echo "-----> Compilation Starting: $*"
+    mkdir -p ${BLD}/bin/
     echo "#!/usr/bin/env bash" > ${BLD}/bin/program
     echo "echo hello world" >> ${BLD}/bin/program
     chmod +x ${BLD}/bin/program
