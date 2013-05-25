@@ -21,7 +21,7 @@ $ cd myapp
 
 Now create an executable build.script file in your app`s root dir. 
 
-This file will be executed with the arguments from heroku buildpack: build.script detect|compile|release <build-dir> [cache-dir]. 
+This file will be executed with the arguments from heroku buildpack: build.script detect|compile|release \<build-dir\> [cache-dir]. 
 
 See https://devcenter.heroku.com/articles/buildpack-api for more info.
 
