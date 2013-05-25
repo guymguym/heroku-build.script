@@ -1,6 +1,6 @@
 # Heroku Buildpack: build.script
 
-Use it if you need a custom buildpack that will call a build.script in the app`s dir, instead of using a predefined buildpack sequence.
+Use it if you need a custom buildpack that will call a build.script in the app dir, instead of using a predefined buildpack sequence.
 
 ## Motivation
 
@@ -23,7 +23,7 @@ Now create an executable build.script file in your app`s root dir.
 
 Notice that the build.script file can be implemented using any executable/interpreted format that heroku stack will be able to run.
 
-If you don`t like or can`t se the name build.script, you can provide a file called .build.script in the app root dir which will contain a different name (for example try: echo "shala/lala/lala/ding.dong" > .build.script and make sure to put your build.script content in that path).
+If you do not like or cannot use the name build.script, you can provide a file called .build.script in the app root dir which will contain a different name (for example try: echo "shala/lala/lala/ding.dong" > .build.script and make sure to put your build.script content in that path).
 
 Here is a simple hello world example of a build.script written in bash:
 
