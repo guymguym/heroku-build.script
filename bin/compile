@@ -8,7 +8,7 @@ SCRIPT="${BLD}/build.script"
 SCRIPT_NAME="${BLD}/.build.script"
 
 if [ -f ${SCRIPT_NAME} ]; then
-    SCRIPT=`cat ${SCRIPT_NAME}`
+    SCRIPT="${BLD}/$(cat ${SCRIPT_NAME})"
 fi
 
 if [ ! -x ${SCRIPT} ]; then
